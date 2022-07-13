@@ -10,7 +10,7 @@ class Student:
 
     def rate_lecturer(self, lecturer, course, mark):
         if isinstance(lecturer, Lecturer) and course in self.courses_in_progress and course in lecturer.courses_attached:
-            lecturer.grades[course] = lecturer.grades.get(course, []) + [mark] 
+            lecturer.grades[course] = lecturer.grades.get(course, []) + [mark]  # ---
         else:
             return 'Ошибка'
 
@@ -92,11 +92,7 @@ class Reviewer(Mentor):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
 
-def avrg_by_cours(students_list, cours):
-    all_marks = []
-    for student in students_list:
-        all_marks += student.grades[cours]
-    return sum(all_marks) / len(all_marks) if len(all_marks) != 0 else 'оценок за курс не выставлялось'   
+# def avrg_by_cours(students, cours):
 
 
 
@@ -113,7 +109,8 @@ print(best_student)
 print()
 
 best_student2 = Student('Petr', 'Petrov', 'male')
-best_student2.courses_in_progress += ['Python', 'Java', 'C++']
+best_student2.courses_in_progress += ['Python']
+best_student2.courses_in_progress += ['Java', 'C++']
 cool_reviewer2 = Reviewer('Some2', 'Buddy2')
 cool_reviewer2.courses_attached += ['Python', 'Java', 'C++']
 cool_reviewer2.rate_hw(best_student2, 'Python', 10)
@@ -126,7 +123,7 @@ print()
 
 cool_Lecturer = Lecturer('Some3', 'Buddy3')
 cool_Lecturer.courses_attached += ['Python', 'Java', 'C++']
-print(cool_Lecturer.rate_hw(best_student2, 'Python', 10))  # ошибка, оценка не добавляется, лектор не может ставить оценки
+print(cool_Lecturer.rate_hw(best_student2, 'Python', 10))  # ошибка, оценка не добавляется, лектор не может давать оценок
 best_student.rate_lecturer(cool_Lecturer, 'Python', 10)
 best_student2.rate_lecturer(cool_Lecturer, 'Java', 20)
 print(cool_Lecturer)
@@ -136,15 +133,12 @@ cool_Lecturer2.courses_attached += ['Python', 'Java', 'C++']
 best_student.rate_lecturer(cool_Lecturer2, 'Python', 3)
 best_student2.rate_lecturer(cool_Lecturer2, 'Java', 33)
 print(cool_Lecturer2)
-print('\nоператоры сравнения для студентов')
+print()
 
 print(best_student == best_student2)
 print(best_student < best_student2)
 print(best_student >= best_student2)
-print('\nоператоры сравнения для лекторов')
+print()
 print(cool_Lecturer2 == cool_Lecturer)
 print(cool_Lecturer2 < cool_Lecturer)
 print(cool_Lecturer2 >= cool_Lecturer)
-print('\nдоп. функция - средняя оценка по курсу')
-
-print(avrg_by_cours([best_student,best_student2], 'Python'))  # средняя оценка по курсу
