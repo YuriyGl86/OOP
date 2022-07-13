@@ -17,7 +17,7 @@ class Student:
     def __get_avrg_grade(self):
         all_grades = sum(self.grades.values(), [])
         if len(all_grades) != 0:
-            avrg_grade = sum(all_grades) / len(all_grades)
+            avrg_grade = round(sum(all_grades) / len(all_grades), 1)
             return avrg_grade
         else:
             return 'нет оценок'
@@ -65,7 +65,7 @@ class Lecturer(Mentor):
     def __get_avrg_grade(self):
         all_grades = sum(self.grades.values(), [])
         if len(all_grades) != 0:
-            avrg_grade = sum(all_grades) / len(all_grades)
+            avrg_grade = round(sum(all_grades) / len(all_grades),1)
             return avrg_grade
         else:
             return 'нет оценок'
@@ -96,7 +96,14 @@ def avrg_by_cours(students_list, cours):
     all_marks = []
     for student in students_list:
         all_marks += student.grades[cours]
-    return sum(all_marks) / len(all_marks) if len(all_marks) != 0 else 'оценок за курс не выставлялось'   
+    return round(sum(all_marks) / len(all_marks), 1) if len(all_marks) != 0 else 'оценок за курс не выставлялось'
+
+
+def avrg_lecturer_rate_by_cours(lecturers_list, cours):
+    all_marks = []
+    for lecturer in lecturers_list:
+        all_marks += lecturer.grades[cours]
+    return round(sum(all_marks) / len(all_marks), 1) if len(all_marks) != 0 else 'оценок за курс не выставлялось'     
 
 
 
@@ -145,6 +152,9 @@ print('\nоператоры сравнения для лекторов')
 print(cool_Lecturer2 == cool_Lecturer)
 print(cool_Lecturer2 < cool_Lecturer)
 print(cool_Lecturer2 >= cool_Lecturer)
-print('\nдоп. функция - средняя оценка по курсу')
+print('\nдоп. функция - средняя оценка студентов по курсу')
 
 print(avrg_by_cours([best_student,best_student2], 'Python'))  # средняя оценка по курсу
+
+print('\nдоп. функция - средняя оценка лекторов по курсу')
+print(avrg_lecturer_rate_by_cours([cool_Lecturer,cool_Lecturer2],'Python'))
